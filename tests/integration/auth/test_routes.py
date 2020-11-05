@@ -5,13 +5,16 @@ Test routes for routes for authorizing users, app/auth/routes
 from flask import session
 
 
-def test_register_login_login_register_when_logged_in(client, user_dict, register_user_response):
+def test_register_login_login_register_when_logged_in(
+    client, user_dict, register_user_response
+):
     """
     Test registering a user, loging in as user and try go to register page.
     """
     assert register_user_response.status_code == 200
-    assert b"Sign In" in register_user_response.data  # Check that was redirected to /login
-    assert b"Congratulations, you are now a registered user!" in register_user_response.data
+    # Check that was redirected to /login
+    assert b"Sign In" in register_user_response.data
+    assert b"Congratulations, you are now a registered user!" in register_user_response.data  # noqa 501
 
     with client:
         response = client.post(
@@ -21,7 +24,8 @@ def test_register_login_login_register_when_logged_in(client, user_dict, registe
         )
         assert session['_user_id'] == "1"
         assert response.status_code == 200
-        assert b"Hi, doe!" in response.data  # Check that was redirected to /index
+        #  Check that was redirected to /index
+        assert b"Hi, doe!" in response.data
 
     response = client.post(
         '/login',
@@ -69,7 +73,9 @@ def test_register_user_missing_data(client):
     assert str(response.data).count("This field is required.") == 4
 
 
-def test_login_with_wrong_username_and_password(client, register_user_response, user_dict):
+def test_login_with_wrong_username_and_password(
+    client, register_user_response, user_dict
+):
     """
     Test logging in with wrong username and password
     """
@@ -84,7 +90,8 @@ def test_login_with_wrong_username_and_password(client, register_user_response, 
         )
         assert response.status_code == 200
         assert session.get('_user_id', None) is None
-        assert b"Sign In" in response.data  # Check that was redirected to /login
+        # Check that was redirected to /login
+        assert b"Sign In" in response.data
         assert b"Invalid username or password" in response.data
 
     with client:
@@ -98,7 +105,8 @@ def test_login_with_wrong_username_and_password(client, register_user_response, 
         )
         assert response.status_code == 200
         assert session.get('_user_id', None) is None
-        assert b"Sign In" in response.data  # Check that was redirected to /login
+        # Check that was redirected to /login
+        assert b"Sign In" in response.data
         assert b"Invalid username or password" in response.data
 
 

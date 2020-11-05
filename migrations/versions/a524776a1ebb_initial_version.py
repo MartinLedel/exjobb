@@ -29,7 +29,11 @@ def upgrade():
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
-    op.create_index(op.f('ix_user_username'), 'user', ['username'], unique=True)
+    op.create_index(
+        op.f('ix_user_username'),
+        'user', ['username'],
+        unique=True
+    )
     op.create_table(
         'post',
         sa.Column('id', sa.Integer(), nullable=False),
@@ -40,7 +44,11 @@ def upgrade():
         sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
         sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_post_timestamp'), 'post', ['timestamp'], unique=False)
+    op.create_index(
+        op.f('ix_post_timestamp'),
+        'post', ['timestamp'],
+        unique=False
+    )
     # ### end Alembic commands ###
 
 

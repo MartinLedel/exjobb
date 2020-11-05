@@ -44,5 +44,7 @@ class RegistrationForm(FlaskForm):
         """
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            current_app.logger.debug("Email already exist in a user. {}".format(user))
+            current_app.logger.debug(
+                "Email already exist in a user. {}".format(user)
+            )
             raise ValidationError('Please use a different email address.')

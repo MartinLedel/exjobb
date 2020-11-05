@@ -6,7 +6,8 @@ Test routes for routes for authorizing users, app/main/routes
 
 def test_non_existing_user(client, login_user_response):
     """
-    Test that 404 is raised when trying to go to a user page for a non-existing user.
+    Test that 404 is raised when trying to go to a
+    user page for a non-existing user.
     """
     with client:
         response = client.get("/user/wrong", follow_redirects=True)
@@ -14,11 +15,15 @@ def test_non_existing_user(client, login_user_response):
         assert response.status_code == 404
 
 
-def test_user_page(client, login_user_response, user_dict, user_post_response, post_dict):
+def test_user_page(
+    client, login_user_response, user_dict, user_post_response, post_dict
+):
     """
     Test that correct info and post are displayed on user profile.
     """
-    response = client.get("/user/" + user_dict["username"], follow_redirects=True)
+    response = client.get(
+        "/user/" + user_dict["username"], follow_redirects=True
+    )
     assert response.status_code == 200
     assert b"Edit your profile" in response.data
     assert str.encode("User: " + user_dict["username"]) in response.data

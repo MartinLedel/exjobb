@@ -1,7 +1,9 @@
 """
 Contains routes used for authenticating User
 """
-from flask import render_template, redirect, url_for, flash, request, current_app
+from flask import (
+    render_template, redirect, url_for, flash, request, current_app
+)
 from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user
 from app import db
@@ -45,13 +47,15 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():  # if form is valid
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):  # if user exist and passowrd correct
+        # if user exist and passowrd correct
+        if user is None or not user.check_password(form.password.data):
             current_app.logger.info("{} failed login".format(user))
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':  # if next argument sent. From @login_required
+        # if next argument sent. From @login_required
+        if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.index')
         current_app.logger.debug("Next from login {}".format(next))
         return redirect(next_page)
