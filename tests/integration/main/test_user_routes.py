@@ -3,6 +3,7 @@ Test routes for routes for authorizing users, app/main/routes
 """
 # pylint: disable=redefined-outer-name,unused-argument
 
+
 def test_non_existing_user(client, login_user_response):
     """
     Test that 404 is raised when trying to go to a user page for a non-existing user.
@@ -11,7 +12,6 @@ def test_non_existing_user(client, login_user_response):
         response = client.get("/user/wrong", follow_redirects=True)
         assert b"File Not Found" in response.data
         assert response.status_code == 404
-
 
 
 def test_user_page(client, login_user_response, user_dict, user_post_response, post_dict):
@@ -25,7 +25,6 @@ def test_user_page(client, login_user_response, user_dict, user_post_response, p
     assert str.encode(post_dict["post"]) in response.data
 
 
-
 def test_get_edit_profile(client, login_user_response, user_dict):
     """
     Test that can edit user profile.
@@ -34,7 +33,6 @@ def test_get_edit_profile(client, login_user_response, user_dict):
     assert response.status_code == 200
     assert b"Edit Profile" in response.data
     assert str.encode(user_dict["username"]) in response.data
-
 
 
 def test_post_edit_profile(client, login_user_response, user_dict):

@@ -8,7 +8,6 @@ from wtforms.validators import ValidationError, Length, DataRequired
 from app.models import User
 
 
-
 class PostForm(FlaskForm):
     """
     Form for posting to system
@@ -16,7 +15,6 @@ class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Submit')
-
 
 
 class EditProfileForm(FlaskForm):
@@ -38,5 +36,7 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
-                current_app.logger.debug("Username already exist. {}".format(user))
+                current_app.logger.debug("Username already exist. {}".format(
+                    user
+                ))
                 raise ValidationError('Please use a different username.')

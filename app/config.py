@@ -3,15 +3,14 @@ Contains Prod, Dev and Test config classes.
 Also Custom class for logging, RequestFormatter.
 """
 
+
 import os
 from logging import Formatter
 from dotenv import load_dotenv
 from flask import request
 
-
-basedir = os.path.abspath(os.path.dirname(__file__) +  "/..")
+basedir = os.path.abspath(os.path.dirname(__file__) + "/..")
 load_dotenv(os.path.join(basedir, '.env'))
-
 
 
 class Config():
@@ -21,18 +20,21 @@ class Config():
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+
 class ProdConfig(Config):
     """Production configuration"""
     ENV = "production"
     DEBUG = False
 
+
 class DevConfig(Config):
     """Development configuration"""
-    ENV = 'development' # Pointless attribut, needs to be set in environment
-    DEBUG = True # Pointless attribut, needs to be set in environment
+    ENV = 'development'  # Pointless attribut, needs to be set in environment
+    DEBUG = True  # Pointless attribut, needs to be set in environment
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 class TestConfig(Config):
     """Test configuration"""
@@ -44,7 +46,6 @@ class TestConfig(Config):
     BCRYPT_LOG_ROUNDS = 4
     # Disable CSRF tokens in the Forms (only valid for testing purposes!)
     WTF_CSRF_ENABLED = False
-
 
 
 class RequestFormatter(Formatter):
