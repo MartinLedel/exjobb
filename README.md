@@ -67,8 +67,7 @@ There are several make commands for testing the application. Use `make help` to 
 ```
 make test
 ```
-
-
+FORCE
 
 ### Run application
 
