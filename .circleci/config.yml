@@ -91,32 +91,32 @@ jobs:
           command: cd ansible && ansible-playbook application.yml
 workflows:
       version: 2
-      build-master:
+      build-main:
         jobs:
           - snyk:
             filters:
               branches:
-                only: master
+                only: main
           - test:
             filters:
               branches:
-                only: master
+                only: main
           - build:
               requires:
                 - test
                 - snyk
               filters:
                 branches:
-                  only: master
+                  only: main
           - publish-latest:
               requires:
                 - build
               filters:
                 branches:
-                  only: master
+                  only: main
           - application-setup:
               requires:
                 - publish-latest
               filters:
                 branches:
-                  only: master
+                  only: main
