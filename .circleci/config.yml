@@ -72,23 +72,6 @@ jobs:
           command: |
             echo "$DOCKER_HUB_PASS" | docker login -u "$DOCKER_HUB_USER" --password-stdin
             docker push zaihga/microblog:latest
-  application-setup:
-    executor: docker-publisher
-    working_directory: ~/project
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies and enter venv
-          command: |
-            sudo apt-get install python3-venv
-            python3 -m venv venv
-      - run: echo "source ~/project/venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Install dependencies for playbook run
-          command: pip3 install -r requirements/deploy.txt
-      - run:
-          name: Run ansible-playbook application
-          command: cd ansible && ansible-playbook application.yml
 workflows:
       version: 2
       build-main:
@@ -111,12 +94,6 @@ workflows:
           - publish-latest:
               requires:
                 - build
-              filters:
-                branches:
-                  only: main
-          - application-setup:
-              requires:
-                - publish-latest
               filters:
                 branches:
                   only: main
