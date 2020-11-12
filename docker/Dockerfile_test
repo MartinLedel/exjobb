@@ -1,0 +1,24 @@
+FROM python:3.6-alpine
+
+RUN adduser -D microblog
+
+WORKDIR /home/microblog
+
+COPY requirements.txt requirements.txt
+COPY requirements requirements
+
+RUN python -m venv .venv
+RUN apk update
+RUN apk add make g++ clang build-base
+RUN .venv/bin/pip3 install -U pylint
+RUN .venv/bin/pip3 install -r requirements/test.txt 
+
+COPY test.sh ./
+
+RUN chmod +x test.sh
+
+RUN chown -R microblog:microblog ./
+USER microblog
+
+EXPOSE 5000
+ENTRYPOINT ["./test.sh"]

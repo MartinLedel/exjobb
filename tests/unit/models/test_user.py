@@ -50,7 +50,7 @@ def test_avatar(_mock_current_app, user1):
                                  'd4c74594d841139328695756648b6bd6'
                                  '?d=retro&s=128')
 
-
+# pylint: disable=unused-argument
 def test_follow(test_app):
     """
     Test that follow appends new Users to followed.
@@ -78,7 +78,7 @@ def test_follow(test_app):
     assert user1.followed.count() == 0
     assert user1.followers.count() == 0
 
-
+# pylint: disable=unused-argument
 def test_follow_posts(test_app):
     """
     Test that all personal and posts from followed users are shown.

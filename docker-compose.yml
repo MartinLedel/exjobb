@@ -1,0 +1,37 @@
+version: '3'
+services:
+    mysql:  
+        image: mysql/mysql-server:5.7
+        environment:
+            - MYSQL_RANDOM_ROOT_PASSWORD=yes
+            - MYSQL_DATABASE=microblog
+            - MYSQL_USER=microblog
+            - MYSQL_PASSWORD=pass
+        volumes:
+            - '/var/lib/mysql:/var/lib/mysql'
+    prod:
+        build: 
+            dockerfile: docker/Dockerfile_prod
+            context: .
+        container_name: 'microblog'
+        environment:
+            - FLASK_APP=microblog.py
+            - SECRET_KEY=secretkey123
+            - DATABASE_URL=mysql+pymysql://microblog:pass@dbserver/microblog 
+        ports:
+            - '8000:5000'
+
+        links:
+            - mysql:dbserver
+        restart: 'always'
+    test:
+        build: 
+            dockerfile: docker/Dockerfile_test
+            context: .
+        container_name: 'microblog-test'
+        environment:
+            - FLASK_APP=microblog.py
+        volumes:
+            - './:/home/microblog/data'
+        links:
+            - mysql:dbserver

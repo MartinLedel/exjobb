@@ -34,18 +34,15 @@ def create_app(config_class=ProdConfig):
     login.init_app(app)
     moment.init_app(app)
     bootstrap.init_app(app)
-    # pylint: disable=wrong-import-position,
-    # cyclic-import, import-outside-toplevel
-    from app.errors import bp as errors_bp
+    # pylint: disable=wrong-import-position, cyclic-import, import-outside-toplevel
+    from app.errors import bp as errors_bp # noqa: E402, F401
     app.register_blueprint(errors_bp)
-
-    from app.auth import bp as auth_bp
+    # pylint: disable=wrong-import-position, cyclic-import, import-outside-toplevel
+    from app.auth import bp as auth_bp  # noqa: E402, F401
     app.register_blueprint(auth_bp)
-
-    from app.main import bp as main_bp
+    # pylint: disable=wrong-import-position, cyclic-import, import-outside-toplevel
+    from app.main import bp as main_bp  # noqa: E402, F401
     app.register_blueprint(main_bp)
-    # pylint: enable=wrong-import-position,
-    # cyclic-import, import-outside-toplevel
     if not app.debug and not app.testing:
         formatter = RequestFormatter(
             '[%(asctime)s %(levelname)s] %(remote_addr)s ' +
