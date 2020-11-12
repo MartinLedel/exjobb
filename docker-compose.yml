@@ -10,6 +10,7 @@ services:
         volumes:
             - '/var/lib/mysql:/var/lib/mysql'
     prod:
+        image: zaihga/microblog:latest
         build: 
             dockerfile: docker/Dockerfile_prod
             context: .
