@@ -2,6 +2,7 @@ domain="ml-jsramverk.me"
 well_known_path="~/.well-known" # must have .well-known in the pathname
 conf_filename="microblog.conf"
 
+
 cat scripts/deploy-app/resources/nginx.conf | sed "s/<domain>/$domain/; s|<.well-known-path>|$well_known_path|" > /etc/nginx/sites-available/$conf_filename
 
 $(cd /etc/nginx/sites-enabled && sudo ln -s /etc/nginx/sites-available/$conf_filename)
