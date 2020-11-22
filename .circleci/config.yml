@@ -5,7 +5,7 @@ orbs:
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: prod
+      IMAGE_NAME: microblog
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
