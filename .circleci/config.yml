@@ -86,7 +86,7 @@ jobs:
             make install-deploy
       - run:
           name: Run ansible-playbook application
-          command: cd ansible && ansible-playbook gather_vm_instances.yml microblog_appserver_setup.yml
+          command: cd ansible && ansible-playbook gather_vm_instances.yml microblog_appserver_setup.yml -vvv
 workflows:
       version: 2
       build-main:
