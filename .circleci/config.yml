@@ -81,7 +81,9 @@ jobs:
       - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
       - run:
           name: Install dependencies for playbook run
-          command: make install-deploy
+          command: |
+            pip install wheel
+            make install-deploy
       - run:
           name: Run ansible-playbook application
           command: cd ansible && ansible-playbook gather_vm_instances.yml microblog_appserver_setup.yml
