@@ -5,8 +5,7 @@ orbs:
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: prod
-      DH_IMAGE_NAME: project_prod
+      IMAGE_NAME: microblog
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
@@ -48,7 +47,7 @@ jobs:
           command: docker-compose up --build -d $IMAGE_NAME
       - run:
           name: Tag build with latest
-          command: docker tag $DH_IMAGE_NAME:latest zaihga/microblog:latest
+          command: docker tag $IMAGE_NAME:latest zaihga/microblog:latest
       - run:
           name: Archive Docker image
           command: docker save -o image.tar zaihga/microblog
@@ -72,6 +71,23 @@ jobs:
           command: |
             echo "$DOCKER_HUB_PASS" | docker login -u "$DOCKER_HUB_USER" --password-stdin
             docker push zaihga/microblog:latest
+  application-setup:
+    executor: docker-publisher
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies and enter venv
+          command: |
+            sudo apt-get install python3-venv
+            python3 -m venv venv
+      - run: echo "source ~/repo/venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Install dependencies for playbook run
+          command: make install-deploy
+      - run:
+          name: Run ansible-playbook application
+          command: cd ansible && ansible-playbook gather_vm_instances.yml application.yml
 workflows:
       version: 2
       build-main:
@@ -94,6 +110,12 @@ workflows:
           - publish-latest:
               requires:
                 - build
+              filters:
+                branches:
+                  only: main
+          - application-setup:
+              requires:
+                - publish-latest
               filters:
                 branches:
                   only: main

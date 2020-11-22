@@ -76,8 +76,8 @@ help:
 # target: add-ssh                         - Add ssh key to agent
 .PHONY: add-ssh
 add-ssh:
-	eval "$(ssh-agent)"
-	ssh-add ~/.ssh/pemkey
+	eval "$(ssh-agent -s)"
+	ssh-add ~/.ssh/azureci
 
 
 
