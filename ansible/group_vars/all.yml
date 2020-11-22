@@ -19,5 +19,5 @@ server_user_pass: $6$TURv7/kmP$7RBFK1yBEhLllCETZ7ScdV7IUz09nsqP8jh3qj/CaH9A9f30I
 server_user_groups: 
     -   sudo
 
-pub_ssh_key_location:
+pub_ssh_key_location2:
     -   ~/.ssh/azureci.pub

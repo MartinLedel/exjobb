@@ -1,0 +1,6 @@
+---
+mysql_volume_path: /var/lib/mysql
+mysql_root_password: $6$DGiRPf4YgE$xr0ylM8pYnE2k1FEU.0Mt1OjHV1et0qewWuBlA0JEr5IZiofVNo3CHmeV3BerBZ1jKoHYr7H/gvkKLGml.cTI/
+mysql_database_name: microblog
+mysql_user: devopstomten
+mysql_password: $6$DGiRPf4YgE$xr0ylM8pYnE2k1FEU.0Mt1OjHV1et0qewWuBlA0JEr5IZiofVNo3CHmeV3BerBZ1jKoHYr7H/gvkKLGml.cTI/
