@@ -1,10 +1,9 @@
 ---
-  -   hosts:
-          -   loadBalancer
-      remote_user: azureuser
-      become: yes
-      become_method: sudo
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
-      roles:
-          -   microblog_loadbalancer_setup
+- hosts: loadBalancer
+  remote_user: deploy
+  become: yes
+  become_method: sudo
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - microblog_loadbalancer_setup

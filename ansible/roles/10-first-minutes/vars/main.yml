@@ -4,3 +4,13 @@ packages:
     -   tmux
     -   git
     -   unattended-upgrades
+
+root_password: $6$Qh0UJVX84vqLqP$7ezg5uerMBMqtOFqYrHFDwL5zFRsNy2tNl34onsVCWNwvYUhEvOkHLr7xGns3.OqYLm3GIvSi5n1Ho5Hu3.Nt.
+
+server_user: deploy
+server_user_pass: $6$TURv7/kmP$7RBFK1yBEhLllCETZ7ScdV7IUz09nsqP8jh3qj/CaH9A9f30IDKdWnUxFFnWuYWC40BK3eGy1HmlSp2oBKpw60
+server_user_groups: 
+    -   sudo
+
+pub_ssh_key_location2:
+    -   ~/.ssh/azureci.pub

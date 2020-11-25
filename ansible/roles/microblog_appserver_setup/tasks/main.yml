@@ -1,11 +1,10 @@
 ---
--   name: microblog container
-    docker_container:
-        name: "microblog"
-        image: zaihga/microblog:latest
-        published_ports: 8000:5000
-        restart: True
-        env:
-            FLASK_APP: microblog.py
-            SECRET_KEY: secretkey123
-            DATABASE_URL: "mysql+pymysql://microblog:pass@{{ groups.database[0] }}/microblog"
+- name: microblog appserver container
+  docker_container:
+    name: "microblog"
+    image: zaihga/microblog:latest
+    ports: 
+      - 8000:5000
+    restart_policy: always
+    env:
+      DATABASE_URL: "mysql+pymysql://microblog:pass@{{ groups['database'][0] }}/microblog"

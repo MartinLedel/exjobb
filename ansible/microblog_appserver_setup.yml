@@ -1,10 +1,10 @@
 ---
-  -   hosts:
-          -   appServer
-      remote_user: azureuser
-      become: yes
-      become_method: sudo
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
-      roles:
-          -   microblog_appserver_setup
+- hosts: appServer
+  remote_user: deploy
+  become: yes
+  become_method: sudo
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - docker_setup
+    - microblog_appserver_setup

@@ -1,10 +1,9 @@
 ---
--   name: Install packages
-    apt:
-        name: 
-          - nginx
-          - python-certbot-nginx
-        state: present
+-   name: Check that nginx is up to date
+    apt: name=nginx state=latest
+
+-   name: Install certbot
+    apt: name=python-certbot-apache state=latest
 
 -   name: Check if certificate already exists.
     stat:
