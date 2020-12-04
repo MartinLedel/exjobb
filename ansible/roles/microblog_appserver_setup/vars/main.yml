@@ -1,0 +1,4 @@
+---
+server_user: deploy
+docker_name: microblog
+docker_image_name: zaihga/microblog:latest

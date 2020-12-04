@@ -20,8 +20,8 @@
 - name: Docker setup step 2
   pip:
     name: 
-        - "docker"
-        - "docker-compose"
+      - "docker"
+      - "docker-compose"
     executable: pip3
 
 - name: Docker setup step 3

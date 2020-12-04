@@ -1,3 +1,10 @@
 ---
-
 server_user: deploy
+
+docker_name: microblog-database
+docker_image_name: mysql/mysql-server:5.7
+
+mysql_database_name: microblog
+mysql_user: microblog
+mysql_pass: pass
+mysql_root_pass: pass

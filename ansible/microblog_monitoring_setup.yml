@@ -1,11 +1,10 @@
 ---
-- hosts: database
+- hosts: monitoring
   remote_user: deploy
   become: yes
   become_method: sudo
   vars:
     ansible_python_interpreter: /usr/bin/python3
   roles:
-    - docker_setup
     - node_exporter_setup
-    - microblog_database_setup
+    - microblog_monitoring_setup
