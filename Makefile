@@ -132,6 +132,15 @@ test-unit: clean
 		-m py.test -c pytest.ini tests/unit
 	$(MAKE) clean-py
 
+# target: bandit	                  - Run bandit in app/ for security issues
+.PHONY: bandit
+bandit:
+	bandit -r app
+
+# target: zap			              - Run zap
+.PHONY: zap
+zap:
+	docker run -t owasp/zap2docker-stable zap-baseline.py -t https://www.ml-jsramverkproj.wtf
 
 
 # target: run-test test=test-file.py   - Run one test file

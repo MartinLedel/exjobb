@@ -68,12 +68,13 @@
         line: "{{ server_user }} ALL=(ALL) NOPASSWD:ALL"
         state: present
 
--   name: Only allow user to ssh
-    lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: "^AllowUsers"
-        line: "AllowUsers {{ server_user }}"
-        state: present
+-   name: Copy sshd_config
+    template:
+        src: files/sshd_config.j2
+        dest: /etc/ssh/sshd_config
+
+-   name: Restart sshd service
+    command: service sshd restart
 
 -   name: Remove default user
     remote_user: "{{ server_user }}"
